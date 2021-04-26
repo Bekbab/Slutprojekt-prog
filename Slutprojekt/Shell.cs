@@ -60,7 +60,7 @@ namespace Slutprojekt
 
             foreach (Shell shell in shellsToRemove)
             {
-                shellsToRemove.Remove(shell);
+                shells.Remove(shell);
             }
             shellsToRemove.Clear();
         }
