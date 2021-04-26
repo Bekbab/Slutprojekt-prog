@@ -15,7 +15,7 @@ namespace Slutprojekt
 
             Raylib.InitWindow(1920, 1080, "Tanky");
             Player p1 = new Player();
-            Shell s1 = new Shell();
+            List<Shell> shells = new List<Shell>();
 
             Raylib.SetTargetFPS(60);
 
@@ -23,8 +23,24 @@ namespace Slutprojekt
             {
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.WHITE);
+
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+                {
+                    shells.Add(new Shell());
+                }
+
+
+                foreach (var Shell in shells)
+                {
+                    Shell.Update();
+                    Shell.Draw();
+                }
                 p1.Update();
                 p1.Draw();
+
+
+
+
 
 
 

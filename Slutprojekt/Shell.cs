@@ -9,20 +9,17 @@ namespace Slutprojekt
     {
         public float shellRotation = Player.rotation;
         public Vector2 shellPosition = Player.position;
+        public float speed = 10;
 
         public Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
 
         public Vector2 movement;
 
-        public List<Shell> shells = new List<Shell>();
-
-
         public void Update()
         {
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-                shells.Add(new Shell)
-            }
+            movement.X = MathF.Sin(shellRotation * MathF.PI / 180) * speed;
+            movement.Y = -(MathF.Cos(shellRotation * MathF.PI / 180) * speed);
+            shellPosition += movement;
         }
 
         public void Draw()
