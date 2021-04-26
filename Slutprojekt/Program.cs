@@ -35,8 +35,6 @@ namespace Slutprojekt
                 p1.Update();
                 p1.Draw();
 
-
-
                 Raylib.EndDrawing();
             }
         }

@@ -58,10 +58,9 @@ namespace Slutprojekt
                 }
             }
 
-
             foreach (Shell shell in shellsToRemove)
             {
-                shellsToRemove.RemoveAll(shell); //varför funkar det inte?
+                shellsToRemove.Remove(shell);
             }
             shellsToRemove.Clear();
         }
