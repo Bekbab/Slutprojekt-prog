@@ -13,7 +13,13 @@ namespace Slutprojekt
 
         public Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
 
+        public Rectangle shellHitBox;
+
+        public Vector2 shellOrigin;
         public Vector2 movement;
+
+        public static float timerMaxValue = 1;
+        public static float timerCurrentValue = timerMaxValue;
 
         public static List<Shell> shells = new List<Shell>();
 
@@ -29,21 +35,13 @@ namespace Slutprojekt
             movement.X = MathF.Sin(shellRotation * MathF.PI / 180) * speed;
             movement.Y = -(MathF.Cos(shellRotation * MathF.PI / 180) * speed);
             shellPosition += movement;
+            shellHitBox = new Rectangle(shellPosition.X, shellPosition.Y, shellTexture.width, shellTexture.height);
+
         }
 
         public void Draw()
         {
-            Raylib.DrawTexturePro(shellTexture, new Rectangle(0, 0, shellTexture.width, shellTexture.height), new Rectangle(shellPosition.X, shellPosition.Y, shellTexture.width, shellTexture.height), new Vector2(shellTexture.width / 2, shellTexture.height / 2), shellRotation, Color.WHITE);
-        }
-
-        public static void DrawAll()
-        {
-            foreach (Shell shell in shells)
-            {
-                shell.Draw();
-
-            }
-            Raylib.DrawText($" shells {shells.Count}", 1600, 20, 50, Color.RED);
+            Raylib.DrawTexturePro(shellTexture, new Rectangle(0, 0, shellTexture.width, shellTexture.height), shellHitBox, shellOrigin = new Vector2(shellTexture.width / 2, shellTexture.height / 2), shellRotation, Color.WHITE);
         }
 
         public static void UpdateAll()
@@ -56,6 +54,16 @@ namespace Slutprojekt
                 {
                     shellsToRemove.Add(shell);
                 }
+                foreach (Enemy enemy in Enemy.enemies)
+                {
+                    if (Raylib.CheckCollisionRecs(enemy.enemyHitBox, shell.shellHitBox))
+                    {
+                        shellsToRemove.Add(shell);
+                        Enemy.enemiesToRemove.Add(enemy);
+                    }
+                }
+
+
             }
 
             foreach (Shell shell in shellsToRemove)
@@ -64,6 +72,17 @@ namespace Slutprojekt
             }
             shellsToRemove.Clear();
         }
+
+        public static void DrawAll()
+        {
+            foreach (Shell shell in shells)
+            {
+                shell.Draw();
+
+            }
+            Raylib.DrawText($" shells {shells.Count}", 1600, 20, 50, Color.RED);
+        }
+
 
     }
 }

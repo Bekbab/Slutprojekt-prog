@@ -28,9 +28,17 @@ namespace Slutprojekt
                 {
                     new Shell();
                 }
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_E))
+                {
+                    new Enemy();
+                }
+
 
                 Shell.UpdateAll();
                 Shell.DrawAll();
+
+                Enemy.UpdateAll();
+                Enemy.DrawAll();
 
                 p1.Update();
                 p1.Draw();
