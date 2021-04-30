@@ -9,10 +9,12 @@ namespace Slutprojekt
     {
         public static float rotation = 0;
 
-        public float speed = 3;
+        public static float speed = 100; //pixels / second
+        public static float rotationSpeed = 180;
         public static Vector2 position = new Vector2(960, 540);
 
         public Texture2D playerTexture = Raylib.LoadTexture(@"tank1.png");
+
 
         public void Update()
 
@@ -30,24 +32,24 @@ namespace Slutprojekt
 
             if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
             {
-                rotation -= 3;
+                rotation -= rotationSpeed * Raylib.GetFrameTime();
             }
             else if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
             {
-                rotation += 3;
+                rotation += rotationSpeed * Raylib.GetFrameTime();
             }
 
 
 
             if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
             {
-                position.X += MathF.Sin(rotation * MathF.PI / 180) * speed;
-                position.Y -= MathF.Cos(rotation * MathF.PI / 180) * speed;
+                position.X += (MathF.Sin(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
+                position.Y -= (MathF.Cos(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
             }
             else if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
             {
-                position.X -= MathF.Sin(rotation * MathF.PI / 180) * speed;
-                position.Y += MathF.Cos(rotation * MathF.PI / 180) * speed;
+                position.X -= (MathF.Sin(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
+                position.Y += (MathF.Cos(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
             }
         }
         public void Draw()

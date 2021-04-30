@@ -14,8 +14,9 @@ namespace Slutprojekt
 
 
             Raylib.InitWindow(1920, 1080, "Tanky");
+
             Player p1 = new Player();
-            // List<Shell> shells = new List<Shell>();
+
 
             Raylib.SetTargetFPS(60);
 
@@ -24,23 +25,46 @@ namespace Slutprojekt
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.WHITE);
 
-                if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+                if (Shell.timerCurrentValue < 0 && Raylib.IsKeyDown(KeyboardKey.KEY_SPACE))
                 {
                     new Shell();
+
+                    Shell.timerCurrentValue = Shell.timerMaxValue;
                 }
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_E))
                 {
                     new Enemy();
                 }
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_R))
+                {
+                    new MachineGun();
+                }
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_T))
+                {
+                    new MegaShot();
+                }
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_Y))
+                {
+                    new NewEngine();
+                }
+
+
+
+
 
 
                 Shell.UpdateAll();
-                Shell.DrawAll();
-
                 Enemy.UpdateAll();
-                Enemy.DrawAll();
-
+                MachineGun.UpdateAll();
+                MegaShot.UpdateAll();
+                NewEngine.UpdateAll();
                 p1.Update();
+
+                Shell.DrawAll();
+                Enemy.DrawAll();
+                MachineGun.DrawAll();
+                MegaShot.DrawAll();
+                NewEngine.DrawAll();
                 p1.Draw();
 
                 Raylib.EndDrawing();

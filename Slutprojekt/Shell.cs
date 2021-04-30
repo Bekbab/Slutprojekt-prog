@@ -9,16 +9,17 @@ namespace Slutprojekt
     {
         public float shellRotation = Player.rotation;
         public Vector2 shellPosition = Player.position;
-        public float speed = 10;
+        public float speed = 15;
 
-        public Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
+        public static Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
 
         public Rectangle shellHitBox;
 
         public Vector2 shellOrigin;
+
         public Vector2 movement;
 
-        public static float timerMaxValue = 1;
+        public static float timerMaxValue = 0.5f;
         public static float timerCurrentValue = timerMaxValue;
 
         public static List<Shell> shells = new List<Shell>();
@@ -50,6 +51,7 @@ namespace Slutprojekt
             {
                 shell.Update();
 
+
                 if (shell.shellPosition.Y < 0 || shell.shellPosition.X < 0 || shell.shellPosition.X > 1920 || shell.shellPosition.Y > 1080)
                 {
                     shellsToRemove.Add(shell);
@@ -64,7 +66,11 @@ namespace Slutprojekt
                 }
 
 
+
+
             }
+
+            timerCurrentValue -= Raylib.GetFrameTime();
 
             foreach (Shell shell in shellsToRemove)
             {
