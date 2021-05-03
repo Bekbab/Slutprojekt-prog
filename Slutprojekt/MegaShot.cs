@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Slutprojekt
 {
+    //Megashot makes shells twice as big, but that means twice the recoil and twice the reload speed
     public class MegaShot
     {
         public Rectangle megaShotHitBox = new Rectangle(1000, 800, 50, 50);
@@ -42,7 +43,8 @@ namespace Slutprojekt
                         Shell.shellsToRemove.Add(shell);
                         megaShotsToRemove.Add(megaShot);
                         Shell.shellTexture = Raylib.LoadTexture(@"shellBig.png");
-
+                        Player.recoil = 20;
+                        Shell.reloadMaxSpeed = 0.12f;
                     }
                 }
             }

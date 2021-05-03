@@ -7,6 +7,7 @@ namespace Slutprojekt
 {
     public class Enemy
     {
+        //Enemies are very simple ai that randomly move around individually. They can be killed but cannot yet kill the player.
         public static Random generator = new Random();
         public Vector2 position = new Vector2(generator.Next(1920), generator.Next(1080));
 
@@ -16,13 +17,16 @@ namespace Slutprojekt
 
         public float rotationSpeed = generator.Next(-180, 181);
 
-        public Vector2 speed = new Vector2(generator.Next(-3, 4), generator.Next(-3, 4));
+        public float speed = generator.Next(-100, 101);
         public static List<Enemy> enemies = new List<Enemy>();
 
         public static List<Enemy> enemiesToRemove = new List<Enemy>();
 
         public static float timerMaxValue = 2;
         public float timerCurrentValue = timerMaxValue;
+
+        public static float spawnTimerMaxValue = (float)generator.NextDouble() + generator.Next(2, 6);
+        public static float spawnTimerCurrentValue = spawnTimerMaxValue;
 
 
         public Enemy()
@@ -32,16 +36,25 @@ namespace Slutprojekt
 
         public void Update()
         {
-            Rectangle enemyHitBox = new Rectangle(position.X, position.Y, 50, 50);
 
-            if (timerCurrentValue > 0)
+            timerCurrentValue -= Raylib.GetFrameTime();
+
+            if (rotation > 360)
             {
-                rotationSpeed = generator.Next(-180, 181);
+                rotation = 0;
+            }
+            if (rotation < 0)
+            {
+                rotation = 360;
+            }
+
+            if (timerCurrentValue > 0 && timerCurrentValue < 1)
+            {
+                rotation += rotationSpeed * Raylib.GetFrameTime();
             }
 
             else if (timerCurrentValue > 1)
             {
-                timerCurrentValue -= Raylib.GetFrameTime();
                 position.X += (MathF.Sin(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
                 position.Y -= (MathF.Cos(rotation * MathF.PI / 180) * speed) * Raylib.GetFrameTime();
             }
@@ -49,20 +62,22 @@ namespace Slutprojekt
             else if (timerCurrentValue < 0)
             {
                 timerCurrentValue = timerMaxValue;
-                speed = new Vector2(generator.Next(-3, 4), generator.Next(-3, 4));
+                speed = generator.Next(-100, 101);
+                rotationSpeed = generator.Next(-190, 181);
 
             }
 
-            if (enemyHitBox.y < 0 || enemyHitBox.x < 0 || enemyHitBox.x > 1920 || enemyHitBox.y > 1080)
+            if (position.Y < 0 || position.X < 0 || position.X > 1920 || position.Y > 1080)
             {
-                speed = new Vector2(0, 0);
+                position = new Vector2(generator.Next(1920), generator.Next(1080));
             }
 
         }
         public void Draw()
         {
-            Raylib.DrawRectanglePro(enemyHitBox, new Vector2(enemyHitBox.x / 2, enemyHitBox.y / 2), rotation, Color.RED);
+            Raylib.DrawRectanglePro(enemyHitBox = new Rectangle(position.X, position.Y, 50, 50), new Vector2(enemyHitBox.width / 2, enemyHitBox.height / 2), rotation, Color.RED);
         }
+
 
 
         public static void DrawAll()
@@ -75,6 +90,7 @@ namespace Slutprojekt
 
         public static void UpdateAll()
         {
+            spawnTimerCurrentValue -= Raylib.GetFrameTime();
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update();

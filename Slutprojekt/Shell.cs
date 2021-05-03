@@ -9,7 +9,7 @@ namespace Slutprojekt
     {
         public float shellRotation = Player.rotation;
         public Vector2 shellPosition = Player.position;
-        public float speed = 15;
+        public float speed = 1000;
 
         public static Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
 
@@ -19,8 +19,10 @@ namespace Slutprojekt
 
         public Vector2 movement;
 
-        public static float timerMaxValue = 0.5f;
-        public static float timerCurrentValue = timerMaxValue;
+        public static float reloadMaxValue = 0.5f;
+        public static float reloadCurrentValue = reloadMaxValue;
+
+        public static float reloadMaxSpeed = 0.06f;
 
         public static List<Shell> shells = new List<Shell>();
 
@@ -35,8 +37,13 @@ namespace Slutprojekt
         {
             movement.X = MathF.Sin(shellRotation * MathF.PI / 180) * speed;
             movement.Y = -(MathF.Cos(shellRotation * MathF.PI / 180) * speed);
-            shellPosition += movement;
+            shellPosition += movement * Raylib.GetFrameTime();
             shellHitBox = new Rectangle(shellPosition.X, shellPosition.Y, shellTexture.width, shellTexture.height);
+
+            if (Shell.reloadMaxValue < Shell.reloadMaxSpeed)
+            {
+                Shell.reloadMaxValue = Shell.reloadMaxSpeed;
+            }
 
         }
 
@@ -62,6 +69,7 @@ namespace Slutprojekt
                     {
                         shellsToRemove.Add(shell);
                         Enemy.enemiesToRemove.Add(enemy);
+                        Player.score += 1;
                     }
                 }
 
@@ -70,7 +78,7 @@ namespace Slutprojekt
 
             }
 
-            timerCurrentValue -= Raylib.GetFrameTime();
+            reloadCurrentValue -= Raylib.GetFrameTime();
 
             foreach (Shell shell in shellsToRemove)
             {
@@ -86,7 +94,7 @@ namespace Slutprojekt
                 shell.Draw();
 
             }
-            Raylib.DrawText($" shells {shells.Count}", 1600, 20, 50, Color.RED);
+            Raylib.DrawText($" shells {reloadMaxValue}", 1600, 20, 50, Color.RED);
         }
 
 
