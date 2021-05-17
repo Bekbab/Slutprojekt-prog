@@ -10,13 +10,12 @@ public void Draw() //Draws this instance of this class
 public static void UpdateAll() //Updates every instance of this class. Contains the Update() method.
 ```
 ```csharp
- public static void DrawAll() //Draws every instance of this class. Contains the Draw() method.
+public static void DrawAll() //Draws every instance of this class. Contains the Draw() method.
 ```
 ```csharp
 public Class Example
 {		
-        public static List<Example> examples = new List<Examples>(); //a static list shared by all instances of the class "Example" where instances of the class "Example" is added.
-
+    public static List<Example> examples = new List<Examples>(); //a static list shared by all instances of the class "Example" where instances of the class "Example" is added.
 
 	public Example()
 	{
