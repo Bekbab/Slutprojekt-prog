@@ -13,13 +13,13 @@ namespace Slutprojekt
 
         public static Texture2D shellTexture = Raylib.LoadTexture(@"shell.png");
 
-        public Rectangle shellHitBox;
+        public Rectangle shellHitBox; //shells need both a hitbox and a texture for collisions to work. 
 
         public Vector2 shellOrigin;
 
         public Vector2 movement;
 
-        public static float reloadMaxValue = 0.5f;
+        public static float reloadMaxValue = 0.5f; //Reload speed starts as 0.5 seconds. 
         public static float reloadCurrentValue = reloadMaxValue;
 
         public static float reloadMaxSpeed = 0.06f;
@@ -87,7 +87,6 @@ namespace Slutprojekt
             }
             shellsToRemove.Clear();
         }
-        //Draw all instances of this class
         public static void DrawAll()
         {
             foreach (Shell shell in shells)
