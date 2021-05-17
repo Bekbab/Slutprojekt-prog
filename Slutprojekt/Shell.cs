@@ -46,12 +46,13 @@ namespace Slutprojekt
             }
 
         }
-
+        //Draw this instance of this class
         public void Draw()
         {
             Raylib.DrawTexturePro(shellTexture, new Rectangle(0, 0, shellTexture.width, shellTexture.height), shellHitBox, shellOrigin = new Vector2(shellTexture.width / 2, shellTexture.height / 2), shellRotation, Color.WHITE);
         }
 
+        //Update all instances of this class
         public static void UpdateAll()
         {
             foreach (Shell shell in shells)
@@ -86,7 +87,7 @@ namespace Slutprojekt
             }
             shellsToRemove.Clear();
         }
-
+        //Draw all instances of this class
         public static void DrawAll()
         {
             foreach (Shell shell in shells)

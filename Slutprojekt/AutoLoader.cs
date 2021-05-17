@@ -14,6 +14,7 @@ namespace Slutprojekt
 
         public static List<AutoLoader> autoLoadersToRemove = new List<AutoLoader>();
 
+        //Creates an instance in a static list shared by all instances 
         public AutoLoader()
         {
             autoLoaders.Add(this);
@@ -32,6 +33,7 @@ namespace Slutprojekt
             }
         }
 
+        //Update function that updates every instance
         public static void UpdateAll()
         {
             foreach (AutoLoader autoLoader in AutoLoader.autoLoaders)
