@@ -22,7 +22,7 @@ namespace Slutprojekt
         public static float reloadMaxValue = 0.5f; //Reload speed starts as 0.5 seconds. 
         public static float reloadCurrentValue = reloadMaxValue;
 
-        public static float reloadMaxSpeed = 0.06f;
+        public static float reloadMaxSpeed = 0.06f; //Reload is capped where it can be counterbalanced by just driving forward with starting speed.
 
         public static List<Shell> shells = new List<Shell>();
 
